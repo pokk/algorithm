@@ -10,6 +10,7 @@ class MergeSort:
     def __init__(self):
         pass
 
+    @staticmethod
     def sort(arr_list):
         ms = MergeSort()
         return ms.__merge_sort(arr_list[:])
