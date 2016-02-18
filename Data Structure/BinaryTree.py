@@ -1,7 +1,7 @@
 """ Created by Jieyi on 2/11/16. """
 
 
-class BT:
+class BinaryTree:
     class _Node:
         def __init__(self, obj):
             self.left = None
@@ -42,7 +42,7 @@ class BT:
 
 
 def main():
-    bt = BT()
+    bt = BinaryTree()
     bt.add_node(1)
     bt.add_node(3)
     bt.add_node(0)

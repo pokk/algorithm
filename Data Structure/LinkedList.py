@@ -20,7 +20,7 @@ class TestObj:
 
 class LinkList:
     """
-    All of the linked list operation.
+    Double linked list. All of the linked list operation.
     """
 
     class _Node:
