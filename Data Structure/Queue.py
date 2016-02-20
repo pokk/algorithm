@@ -5,15 +5,20 @@ import random
 class Queue:
     def __init__(self):
         self.__queue = []
-        pass
 
     def enqueue(self, obj):
         self.__queue.append(obj)
 
     def dequeue(self):
+        if self.is_empty():
+            return None
+
         tmp = self.__queue[0]
         self.__queue = self.__queue[1:]
         return tmp
+
+    def is_empty(self):
+        return True if len(self.__queue) is 0 else False
 
     def show(self):
         print(self.__queue)

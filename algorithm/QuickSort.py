@@ -19,19 +19,18 @@ class QuickSort:
 
         return qs_arr
 
-    """ Algorithm
-    1. Choose a pivot for dividing two sequence.
-    2. Search a number is smaller than pivot from the leftest to right.
-    3. Search a number is larger than pivot from the rightest to left.
-    4. Swap the two number. Continue step 2 and step 3 until cross.
-    5. Let the pivot divide two sequence, all of the number in left side are smaller than pivot,
-       in the other hand, do the same thing.
-    6. Left side sequence does quick sort by recursive. Right side also do.
-    5. Got an order sequence.
-    """
-
     # Normal quick sort algorithm.
     def __quick_sort(self, arr_list, l_index, r_index):
+        """ Algorithm
+        1. Choose a pivot for dividing two sequence.
+        2. Search a number is smaller than pivot from the leftest to right.
+        3. Search a number is larger than pivot from the rightest to left.
+        4. Swap the two number. Continue step 2 and step 3 until cross.
+        5. Let the pivot divide two sequence, all of the number in left side are smaller than pivot,
+           in the other hand, do the same thing.
+        6. Left side sequence does quick sort by recursive. Right side also do.
+        5. Got an order sequence.
+        """
         if l_index >= r_index:
             return
 
@@ -60,15 +59,14 @@ class QuickSort:
         self.__quick_sort(arr_list, l_index, r - 1)
         self.__quick_sort(arr_list, l, r_index)
 
-    """ Algorithm
-    1. All of number is smaller than pivot put to left side.
-    2. All of number is larger than pivot put to right side.
-    3. Left sequence does the quick sort by recursive, Right sequence does the quick sort by recursive.
-    4. Got an order sequence.
-    """
-
     # Using quick sort concept.
     def __q_sort(self, arr_list):
+        """ Algorithm
+        1. All of number is smaller than pivot put to left side.
+        2. All of number is larger than pivot put to right side.
+        3. Left sequence does the quick sort by recursive, Right sequence does the quick sort by recursive.
+        4. Got an order sequence.
+        """
         if len(arr_list) <= 1:
             return arr_list
         else:

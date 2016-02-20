@@ -7,12 +7,20 @@ class Stack:
         self.__stack = []
 
     def pop(self):
+        if self.is_empty():
+            return None
+
         obj = self.__stack[len(self.__stack) - 1]
         self.__stack = self.__stack[:len(self.__stack) - 1]
         return obj
 
     def push(self, obj):
         self.__stack.append(obj)
+
+    def is_empty(self):
+        if len(self.__stack) is 0:
+            return True
+        return False
 
     def show(self):
         print(self.__stack)

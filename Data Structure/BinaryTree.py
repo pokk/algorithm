@@ -40,6 +40,10 @@ class BinaryTree:
             print(node.content)
             self._in_order(node.right)
 
+    @property
+    def get_head(self):
+        return self.__head
+
 
 def main():
     bt = BinaryTree()
