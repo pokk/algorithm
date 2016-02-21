@@ -37,33 +37,33 @@ class LinkList:
             return str(self.content)
 
     def __init__(self):
-        self.__list = None
+        self.__head = None
 
     def add_node(self, obj):
-        if self.__list is None:
-            self.__list = self._Node(obj)
+        if self.__head is None:
+            self.__head = self._Node(obj)
         else:
-            ll = self.__list
-            while ll.next:
-                ll = ll.next
+            ptr = self.__head
+            while ptr.next:
+                ptr = ptr.next
             new_ll = self._Node(obj)
-            ll.next = new_ll
-            new_ll.previous = ll
+            ptr.next = new_ll
+            new_ll.previous = ptr
 
-    def find_node(self, obj):
-        ll = self.__list
+    def find(self, obj):
+        ptr = self.__head
         index = 0
 
-        while ll:
-            if obj == ll.content:
-                return ll, index
-            ll = ll.next
+        while ptr:
+            if obj == ptr.content:
+                return ptr.content, index
+            ptr = ptr.next
             index += 1
 
         return None
 
-    def del_node(self, obj):
-        res, index = self.find_node(obj)
+    def delete(self, obj):
+        res, index = self.find(obj)
 
         if res:
             prev = res.previous
@@ -72,17 +72,19 @@ class LinkList:
             if prev is not None:
                 prev.next = nex
             else:
-                self.__list = res.next
+                self.__head = res.next
 
             if nex is not None:
                 nex.previous = prev
 
             del res
+            return True
         else:
             print("we don't find it ><")
+            return False
 
     def show_list(self):
-        ll = self.__list
+        ll = self.__head
         while ll:
             print(ll)
             ll = ll.next
@@ -101,7 +103,7 @@ def main():
 
     print('====================')
 
-    n.del_node(TestObj('Peter', 14, 'boy'))
+    n.delete(TestObj('Peter', 14, 'boy'))
     n.show_list()
 
 

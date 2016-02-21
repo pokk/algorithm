@@ -12,7 +12,7 @@ class DFS:
         self.__arr_list = []
 
     def dfs(self, node):
-        """
+        """ Algorithm
         1. Collate all of the children of the node into array.
         2. Save the node content into array list.
         3. Recursive DFS algorithm from children array.
