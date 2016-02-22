@@ -30,40 +30,32 @@ class LinkList:
 
         def __init__(self, obj):
             self.previous = None
-            self.content = obj
+            self.data = obj
             self.next = None
 
         def __str__(self):
-            return str(self.content)
+            return str(self.data)
 
     def __init__(self):
         self.__head = None
+        self.__tail = None
 
     def add_node(self, obj):
         if self.__head is None:
             self.__head = self._Node(obj)
+            self.__tail = self.__head
         else:
-            ptr = self.__head
-            while ptr.next:
-                ptr = ptr.next
-            new_ll = self._Node(obj)
-            ptr.next = new_ll
-            new_ll.previous = ptr
+            ptr = self._Node(obj)
+            self.__tail.next = ptr
+            ptr.previous = self.__tail
+            self.__tail = ptr
 
     def find(self, obj):
-        ptr = self.__head
-        index = 0
-
-        while ptr:
-            if obj == ptr.content:
-                return ptr.content, index
-            ptr = ptr.next
-            index += 1
-
-        return None
+        node, index = self.__find_node_and_index(obj)
+        return node.content
 
     def delete(self, obj):
-        res, index = self.find(obj)
+        res, index = self.__find_node_and_index(obj)
 
         if res:
             prev = res.previous
@@ -84,10 +76,22 @@ class LinkList:
             return False
 
     def show_list(self):
-        ll = self.__head
-        while ll:
-            print(ll)
-            ll = ll.next
+        ptr = self.__head
+        while ptr:
+            print(ptr)
+            ptr = ptr.next
+
+    def __find_node_and_index(self, obj):
+        ptr = self.__head
+        index = 0
+
+        while ptr:
+            if obj == ptr.content:
+                return ptr, index
+            ptr = ptr.next
+            index += 1
+
+        return None
 
 
 def main():

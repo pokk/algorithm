@@ -12,10 +12,7 @@ class Queue:
     def dequeue(self):
         if self.is_empty():
             return None
-
-        tmp = self.__list[0]
-        self.__list = self.__list[1:]
-        return tmp
+        return self.__list.pop(0)
 
     def is_empty(self):
         return not self.__list
