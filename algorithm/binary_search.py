@@ -1,6 +1,5 @@
 """ Created by Jieyi on 2/14/16. """
-
-arr = [3, 7, 2, 6, 1, 4, 532, 54, 41, 43]
+from algorithm import arr
 
 
 class BinarySearch:

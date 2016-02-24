@@ -7,13 +7,26 @@ class Permutation(Numeral):
         super().__init__()
 
     def permutation(self, array):
-        arr = array[:] if type(array) is str else ''.join(str(c) for c in array)
-        self.__init_var()
+        self._init_variable()  # Always init the variables before process.
+        arr = self._list_2_str(array)
+
         self.__recursive_permutation('', arr)
 
         return self._result_array
 
     def __recursive_permutation(self, res, array):
+        """
+        Pick up the character sequentially and do the recursive.
+        For example as below:
+                    'A', 'BC'   'BA', 'C'
+                  /           /
+        '', 'ABC' - 'B', 'AC'
+                  \           \
+                    'C', 'AB'   'BC', 'A'
+
+        :param res: One of the result of permutation.
+        :param array: Original array.
+        """
         if not array:
             self._array_size += 1
             self._result_array.append(res)
@@ -21,23 +34,15 @@ class Permutation(Numeral):
             for i in range(len(array)):
                 self.__recursive_permutation(res + array[i], array[:i] + array[i + 1:])
 
-    def __init_var(self):
-        del self._result_array
-        self._result_array = []
-        self._array_size = len(self._result_array)
-
-    @property
-    def get_array_size(self):
-        return self._array_size
-
 
 def main():
-    a = 'ABC'
+    a = 'ABCD'
 
     per = Permutation()
     p = per.permutation(a)
-    s = per.get_array_size
-    print(p, s)
+
+    print(p)
+    print(len(p))
 
 
 if __name__ == '__main__':

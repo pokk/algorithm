@@ -1,5 +1,5 @@
 """ Created by Jieyi on 2/14/16. """
-from BinarySearch import arr
+from algorithm import arr
 
 
 class QuickSort:

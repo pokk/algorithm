@@ -1,6 +1,6 @@
 """ Created by Jieyi on 2/14/16. """
-from BinaryTree import BinaryTree
-from Queue import Queue
+from binary_tree import BinaryTree
+from queue import Queue
 
 
 class DFS:
