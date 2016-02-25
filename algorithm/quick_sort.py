@@ -31,6 +31,7 @@ class QuickSort:
         6. Left side sequence does quick sort by recursive. Right side also do.
         5. Got an order sequence.
         """
+
         if l_index >= r_index:
             return
 
@@ -67,6 +68,7 @@ class QuickSort:
         3. Left sequence does the quick sort by recursive, Right sequence does the quick sort by recursive.
         4. Got an order sequence.
         """
+
         if len(arr_list) <= 1:
             return arr_list
         else:

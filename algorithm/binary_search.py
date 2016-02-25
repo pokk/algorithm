@@ -60,6 +60,7 @@ class BinarySearch:
 
         :param array: A number sequence without sorting.
         """
+
         for i in range(len(array) - 1, 0, -1):
             for j in range(i):
                 if array[j] > array[j + 1]:

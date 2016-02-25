@@ -24,6 +24,7 @@ class MergeSort:
         4. Merge the left and right sequence.
         5. Got an order sequence.
         """
+
         if len(arr_list) > 1:
             mid_index = int(len(arr_list) / 2)
 
@@ -41,6 +42,7 @@ class MergeSort:
            If 'Yes', the number insert to current index of 'left'. Otherwise, go next of 'left'.
         4. If 'left' is finished visiting, we add all of the 'right' to the end of 'left'.
         """
+
         if len(left) is 0:
             return right
         elif len(right) is 0:

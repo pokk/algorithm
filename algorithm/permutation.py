@@ -27,6 +27,7 @@ class Permutation(Numeral):
         :param res: One of the result of permutation.
         :param array: Original array.
         """
+
         if not array:
             self._array_size += 1
             self._result_array.append(res)
