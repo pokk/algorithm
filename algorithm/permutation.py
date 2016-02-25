@@ -18,11 +18,11 @@ class Permutation(Numeral):
         """
         Pick up the character sequentially and do the recursive.
         For example as below:
-                    'A', 'BC'   'BA', 'C'
+                    'A', 'BC'   'BA', 'C' - 'BAC', ''
                   /           /
         '', 'ABC' - 'B', 'AC'
                   \           \
-                    'C', 'AB'   'BC', 'A'
+                    'C', 'AB'   'BC', 'A' - 'BCA', ''
 
         :param res: One of the result of permutation.
         :param array: Original array.

@@ -1,5 +1,5 @@
 """ Created by wu.jieyi on 2016/02/24. """
-from __interface__ import Numeral
+from algorithm.__interface__ import Numeral
 
 
 class Combination(Numeral):
