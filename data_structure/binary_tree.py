@@ -1,18 +1,18 @@
 """ Created by Jieyi on 2/11/16. """
-from __interface__ import BinaryTreeNode
+from data_structure.__interface__ import BinaryTreeNode
 
 
 class BinaryTree:
     def __init__(self):
-        self.__head = None
+        self._head = None
 
     def add_node(self, obj):
-        if self.__head is None:
-            self.__head = BinaryTreeNode(obj)
+        if self._head is None:
+            self._head = BinaryTreeNode(obj)
             return
 
-        th = self.__head
-        while True:
+        th = self._head
+        while 1:
             if obj > th.data:
                 if th.right is not None:
                     th = th.right
@@ -27,17 +27,30 @@ class BinaryTree:
                     return
 
     def show(self):
-        self._in_order(self.__head)
+        # self._in_order(self._head)
+        self._pre_order(self._head)
+
+    def _pre_order(self, node):
+        if node:
+            print(node.data)
+            self._pre_order(node.left)
+            self._pre_order(node.right)
 
     def _in_order(self, node):
-        if node is not None:
+        if node:
             self._in_order(node.left)
             print(node.data)
             self._in_order(node.right)
 
+    def _post_order(self, node):
+        if node:
+            self._post_order(node.left)
+            self._post_order(node.right)
+            print(node.data)
+
     @property
-    def get_head(self):
-        return self.__head
+    def head(self):
+        return self._head
 
 
 def main():

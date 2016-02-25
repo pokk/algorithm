@@ -1,6 +1,6 @@
 """ Created by Jieyi on 2/14/16. """
-from binary_tree import BinaryTree
-from queue import Queue
+from data_structure.binary_tree import BinaryTree
+from data_structure.queue import Queue
 
 
 class DFS:
@@ -28,7 +28,7 @@ class DFS:
         if node.right is not None:
             tmp_arr.append(node.right)
 
-        self.__arr_list.append(node.content)
+        self.__arr_list.append(node.data)
 
         for p in tmp_arr:
             self.dfs(p)
@@ -62,13 +62,13 @@ class BFS:
         if node.right is not None:
             self.__q.enqueue(node.right)
 
-        self.__arr_list.append(node.content)
+        self.__arr_list.append(node.data)
 
         while not self.__q.is_empty():
             self.bfs(self.__q.dequeue())
 
     @property
-    def get_bfs_list(self):
+    def bfs_list(self):
         return self.__arr_list
 
 
@@ -92,19 +92,18 @@ def main():
     bt.add_node(5)
     bt.add_node(1)
     bt.add_node(14)
-
     bt.show()
 
     print('--------------------- bfs start -----------------------')
 
     bfs = BFS()
-    bfs.bfs(bt.get_head)
-    print(bfs.get_bfs_list)
+    bfs.bfs(bt.head)
+    print(bfs.bfs_list)
 
     print('--------------------- dfs start -----------------------')
 
     dfs = DFS()
-    dfs.dfs(bt.get_head)
+    dfs.dfs(bt.head)
     print(dfs.get_dfs_list)
 
 

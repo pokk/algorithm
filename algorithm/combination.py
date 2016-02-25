@@ -12,7 +12,7 @@ class Combination(Numeral):
 
         # self.__recursive_combination_order_pick('', arr)
         # self.__recursive_combination_choose('', arr)
-        self.__nonrecursive_combination(arr)
+        self.__non_recursive_combination(arr)
 
         return self._result_array
 
@@ -65,16 +65,23 @@ class Combination(Numeral):
             self.__recursive_combination_choose(res + array[index], array, index + 1)
             self.__recursive_combination_choose(res, array, index + 1)
 
-    def __nonrecursive_combination(self, array):
+    def __non_recursive_combination(self, array):
+        """
+        1. Add an empty set to the result.
+        2. Each of character combine with result array.
+        3. After finish origin array loop, we got a combination.
+
+        :param array: Original array.
+        """
+
         # There is an empty set in the combination.
         self._result_array.append('')
 
-        for buff in range(len(array) + 1):
-            for i in range(len(array) - buff):
-                times = range(1) if buff is 0 else range(i + buff, len(array))
-                for j in times:
-                    print(array[i:i + buff + 1] if j is 0 else array[i:i + buff] + array[j])
-                    self._result_array.append(array[i:i + buff + 1] if j is 0 else array[i:i + buff] + array[j])
+        for char_of_arr in array:
+            tmp_res = []
+            for char_of_ori in self._result_array:
+                tmp_res.append(char_of_ori + char_of_arr)
+            self._result_array += tmp_res
 
 
 def main():
