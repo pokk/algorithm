@@ -6,6 +6,9 @@ class Queue:
     def __init__(self):
         self.__list = []
 
+    def __str__(self):
+        return str([node.data for node in self.__list])
+
     def enqueue(self, obj):
         self.__list.append(obj)
 
