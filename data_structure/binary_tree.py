@@ -6,7 +6,7 @@ class BinaryTree:
     def __init__(self):
         self._head = None
 
-    def add_node(self, obj):
+    def add(self, obj):
         if self._head is None:
             self._head = BinaryTreeNode(obj)
             return
@@ -26,9 +26,28 @@ class BinaryTree:
                     th.left = BinaryTreeNode(obj)
                     return
 
+    def find(self, obj):
+        res = self._find(obj)
+        return res.data if res else None
+
     def show(self):
         # self._in_order(self._head)
         self._pre_order(self._head)
+
+    def _find(self, obj):
+        res = None
+
+        def search_bt(node):
+            if node:
+                if node.data is obj:
+                    nonlocal res
+                    res = node
+                    return
+                search_bt(node.left)
+                search_bt(node.right)
+
+        search_bt(self._head)
+        return res
 
     def _pre_order(self, node):
         if node:
@@ -55,10 +74,10 @@ class BinaryTree:
 
 def main():
     bt = BinaryTree()
-    bt.add_node(1)
-    bt.add_node(3)
-    bt.add_node(0)
-    bt.add_node(4)
+    bt.add(1)
+    bt.add(3)
+    bt.add(0)
+    bt.add(4)
 
     bt.show()
 
