@@ -1,22 +1,23 @@
 """ Created by wu.jieyi on 2016/02/24. """
+from abc import ABCMeta, abstractmethod
+
 from algorithm.dfs_bfs import BFS
 from data_structure.__interface__ import BinaryTreeNode
 from data_structure.binary_tree import BinaryTree
 from data_structure.queue import Queue
 
 
-class MaxHeap(BinaryTree):
+class Heap(BinaryTree, metaclass=ABCMeta):
     def __init__(self):
         super().__init__()
 
         self.__q = Queue()
+        self.__finish_add = False
         self._tail = self._head
-        self._finish_add = False
 
+    @abstractmethod
     def add(self, obj):
         self._add_to_balance(obj)
-        # Adjust the heap by re-heap-up.
-        self._re_heap_up(self._tail)
 
     def del_node(self, obj=None):
         """
@@ -69,7 +70,7 @@ class MaxHeap(BinaryTree):
                 return False
 
             self._tail.parent = inner_node
-            self._finish_add = True
+            self.__finish_add = True
 
             return True
 
@@ -87,15 +88,39 @@ class MaxHeap(BinaryTree):
             while not self.__q.is_empty():
                 q = self.__q.dequeue()
                 # Decide we need to visit all of node or not.
-                if not self._finish_add:
+                if not self.__finish_add:
                     inner_dfs_add_node(q, inner)
 
         if not self._head:
             self._head = self._tail = BinaryTreeNode(obj)
             return
 
-        self._finish_add = False
+        self.__finish_add = False
         inner_dfs_add_node(self._head, obj)
+
+    @abstractmethod
+    def _re_heap_up(self, node):
+        pass
+
+    @abstractmethod
+    def _re_heap_down(self, node):
+        pass
+
+    def _find_tail(self):
+        bfs = BFS()
+        bfs.bfs(self.head)
+        return bfs.bfs_node_list[-1]
+
+    @property
+    def tail(self):
+        return self._tail
+
+
+class MaxHeap(Heap):
+    def add(self, obj):
+        super(MaxHeap, self).add(obj)
+        # Do the re-heap-up.
+        self._re_heap_up(self._tail)
 
     def _re_heap_up(self, node):
         """
@@ -118,10 +143,10 @@ class MaxHeap(BinaryTree):
         # No children.
         if not node.left and not node.right:
             return
-        # Only left child.
+            # Only left child.
         elif not node.right and node.data < node.left.data:
             changed_node = node.left
-        # There are two children.
+            # There are two children.
         else:
             if node.left.data > node.data > node.right.data:
                 changed_node = node.left
@@ -135,38 +160,68 @@ class MaxHeap(BinaryTree):
         node.data, changed_node.data = changed_node.data, node.data
         self._re_heap_down(changed_node)
 
-    def _find_tail(self):
-        bfs = BFS()
-        bfs.bfs(self.head)
-        return bfs.bfs_node_list[-1]
 
-    @property
-    def tail(self):
-        return self._tail
+class MinHeap(Heap):
+    def add(self, obj):
+        super(MinHeap, self).add(obj)
+        # Do the re-heap-down.
+        self._re_heap_up(self._tail)
 
+    def _re_heap_up(self, node):
+        """
+        Adjust the node as following heap rule from the node to the end.
 
-class MinHeap(BinaryTree):
-    pass
+        :param node: The node is needed to adjust.
+        """
+
+        if self.head is not node and node.parent.data > node.data:
+            node.parent.data, node.data = node.data, node.parent.data
+            self._re_heap_up(node.parent)
+
+    def _re_heap_down(self, node):
+        """
+        Adjust the node as following heap rule from the node to the end.
+
+        :param node: The node is needed to adjust.
+        """
+
+        # No children.
+        if not node.left and not node.right:
+            return
+            # Only left child.
+        elif not node.right and node.data < node.left.data:
+            changed_node = node.left
+            # There are two children.
+        else:
+            if node.left.data < node.data < node.right.data:
+                changed_node = node.left
+            elif node.left.data > node.data > node.right.data:
+                changed_node = node.right
+            elif node.left.data < node.data > node.right.data:
+                changed_node = node.left if node.left.data < node.right.data else node.right
+            else:
+                return
+
+        node.data, changed_node.data = changed_node.data, node.data
+        self._re_heap_down(changed_node)
 
 
 def main():
     """
-        1                      9
-      3   2    -> heap ->    4   6
-    6  4 5  9              1  3 2  5
+      heap
+        1         max          9         min          1
+      3   2    -> heap ->    4   6    -> heap ->    3   2
+    6  4 5  9              1  3 2  5              6  4 5  9
     """
-    mh = MaxHeap()
-    mh.add(1)
-    mh.add(3)
-    mh.add(2)
-    mh.add(6)
-    mh.add(4)
-    mh.add(5)
-    mh.add(9)
+    arr = [1, 3, 2, 6, 4, 5, 9]
+
+    # mh = MaxHeap()
+    mh = MinHeap()
+    for num in arr:
+        mh.add(num)
 
     # mh.del_node(4)
     # mh.del_node(9)
-
     mh.show()
 
 

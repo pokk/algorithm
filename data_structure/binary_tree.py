@@ -30,6 +30,12 @@ class BinaryTree:
         res = self._find(obj)
         return res.data if res else None
 
+    def height(self, node):
+        if not node:
+            return 0
+        else:
+            return 1 + max(self.height(node.left), self.height(node.right))
+
     def show(self):
         # self._in_order(self._head)
         self._pre_order(self._head)
@@ -51,21 +57,21 @@ class BinaryTree:
 
     def _pre_order(self, node):
         if node:
-            print(node.data)
+            print(node)
             self._pre_order(node.left)
             self._pre_order(node.right)
 
     def _in_order(self, node):
         if node:
             self._in_order(node.left)
-            print(node.data)
+            print(node)
             self._in_order(node.right)
 
     def _post_order(self, node):
         if node:
             self._post_order(node.left)
             self._post_order(node.right)
-            print(node.data)
+            print(node)
 
     @property
     def head(self):

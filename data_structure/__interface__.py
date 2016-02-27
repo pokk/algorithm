@@ -6,13 +6,16 @@ class BinaryTreeNode:
         self.parent = None
         self.left = None
         self.data = obj
+        self.height = 0
         self.right = None
 
-    # def __str__(self):
-    #     return '(parent: %s, data: %s, l-child: %s, r-child: %s)' % (self.parent, str(self.data), self.left, self.right)
-
-    def show(self):
-        print('(parent: %s, data: %s, l-child: %s, r-child: %s)' % (self.parent, str(self.data), self.left, self.right))
+    def __str__(self):
+        return 'data: %s \t,parent: %s  \t,l-child: %s \t,r-child: %s \t,height: %s' \
+               % (self.data,
+                  self.parent.data if self.parent else None,
+                  self.left.data if self.left else None,
+                  self.right.data if self.right else None,
+                  self.height)
 
 
 class LinkedListNode:
