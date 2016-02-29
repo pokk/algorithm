@@ -26,7 +26,6 @@ class AVLTree(BinaryTree):
 
 
 def main():
-    print("hello world")
     arr = [1, 3, 0, 4]
 
     avl_tree = AVLTree()
