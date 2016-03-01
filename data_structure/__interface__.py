@@ -21,7 +21,7 @@ class BinaryTreeNode:
 class AvlTreeNode(BinaryTreeNode):
     def __init__(self, obj):
         super().__init__(obj)
-        self.balance_factor = None
+        self.balance_factor = 0
 
     def __str__(self):
         return 'data: %s \t,parent: %s  \t,l-child: %s \t,r-child: %s \t,height: %s \t,b_factor: %s' \

@@ -29,43 +29,45 @@ class AVLTree(BinaryTree):
         else:
             inner_add(self._head, obj)
 
-        self.__cal_height(self.head)
         while 1:
             re_node = self.__stack.pop()
             if not re_node:
                 break
+            re_node.height = self.height(re_node)
+            re_node.balance_factor = self.__cal_balance_facotr(re_node)
             if abs(re_node.balance_factor) is 2:
-                print('you have problem!!!')
                 self.__rotate(re_node)
-            print(re_node.data, re_node.height)
+                # TODO: select the head and parent.
 
     def del_node(self, node):
         pass
 
-    def __cal_height(self, node):
+    def __cal_balance_facotr(self, node):
         """
-        Calculate the height of each node of whole tree.
+        """
 
-        :param node: The tree head.
-        """
-        if node:
-            node.balance_factor = self.height(node.left) - self.height(node.right)
-            self.__cal_height(node.left)
-            self.__cal_height(node.right)
+        if not node.left and not node.right:
+            return 0
+        left_height = node.left.height if node.left else -1
+        right_height = node.right.height if node.right else -1
+        return left_height - right_height
 
     def __rotate(self, node):
-        if node.height is 2:
-            print('l')
-            if node.right.height is 2:
-                pass
+        if node.balance_factor is 2:
+            if node.left.balance_factor is 1:
+                self.__ll_rotate(node)
+            elif node.left.balance_factor is -1:
+                self.__lr_rotate(node)
             pass
-        elif node.height is -2:
-            print('r')
-
+        elif node.balance_factor is -2:
+            if node.right.balance_factor is 1:
+                self.__rl_rotate(node)
+            elif node.right.balance_factor is -1:
+                self.__rr_rotate(node)
             pass
         pass
 
-    def __ll_rotate(self):
+    def __ll_rotate(self, node):
         """
                z                                      y
               / \                                   /   \
@@ -75,9 +77,14 @@ class AVLTree(BinaryTree):
           / \
         T1   T2
         """
-        pass
 
-    def __rr_rotate(self):
+        a = node
+        b = node.left
+        a.left = b.right
+        b.right = a
+        print('ll')
+
+    def __rr_rotate(self, node):
         """
              z                               z                           x
             / \                            /   \                        /  \
@@ -88,9 +95,13 @@ class AVLTree(BinaryTree):
           T2   T3                    T1   T2
         """
 
-        pass
+        a = node
+        b = node.right
+        a.right = b.left
+        b.left = a
+        print('rr')
 
-    def __lr_rotate(self):
+    def __lr_rotate(self, node):
         """
           z                                y
          /  \                            /   \
@@ -101,9 +112,17 @@ class AVLTree(BinaryTree):
              T3  T4
         """
 
-        pass
+        a = node
+        b = node.left
+        c = node.left.right
 
-    def __rl_rotate(self):
+        a.left = c.right
+        b.right = c.left
+        c.right = a
+        c.left = b
+        print('lr')
+
+    def __rl_rotate(self, node):
         """
            z                            z                            x
           / \                          / \                          /  \
@@ -114,11 +133,19 @@ class AVLTree(BinaryTree):
         T2   T3                           T3   T4
         """
 
-        pass
+        a = node
+        b = node.right
+        c = node.right.left
+
+        a.right = c.left
+        b.left = c.right
+        c.left = a
+        c.right = b
+        print('rl')
 
 
 def main():
-    arr = [1, 2, 3]
+    arr = [4, 2, 6, 8, 9]
 
     avl_tree = AVLTree()
     for num in arr:

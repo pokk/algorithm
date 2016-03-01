@@ -32,23 +32,22 @@ class BinaryTree:
 
         inner_add(obj)
 
-        # TODO: Count the height.
         while 1:
             n = self.__stack.pop()
             if not n:
                 break
-
-            self.height(n)
+            n.height = self.height(n)
 
     def find(self, obj):
         res = self._find(obj)
         return res.data if res else None
 
     def height(self, node):
-        if not node:
+        if not node or (not node.left and not node.right):
             return 0
-        else:
-            return 1 + max(self.height(node.left), self.height(node.right))
+        left_height = node.left.height if node.left else 0
+        right_height = node.right.height if node.right else 0
+        return max(left_height, right_height) + 1
 
     def show(self):
         # self._in_order(self._head)
@@ -93,11 +92,10 @@ class BinaryTree:
 
 
 def main():
+    arr = [1, 3, 0, 4, 2, 5, 6]
     bt = BinaryTree()
-    bt.add(1)
-    bt.add(3)
-    # bt.add(0)
-    # bt.add(4)
+    for num in arr:
+        bt.add(num)
 
     bt.show()
 
