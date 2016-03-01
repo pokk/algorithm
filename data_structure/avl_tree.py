@@ -34,8 +34,9 @@ class AVLTree(BinaryTree):
             re_node = self.__stack.pop()
             if not re_node:
                 break
-            if abs(re_node.height) >= 2:
+            if abs(re_node.balance_factor) is 2:
                 print('you have problem!!!')
+                self.__rotate(re_node)
             print(re_node.data, re_node.height)
 
     def del_node(self, node):
@@ -48,23 +49,71 @@ class AVLTree(BinaryTree):
         :param node: The tree head.
         """
         if node:
-            node.height = self.height(node.left) - self.height(node.right)
+            node.balance_factor = self.height(node.left) - self.height(node.right)
             self.__cal_height(node.left)
             self.__cal_height(node.right)
 
-    def __rotate(self):
+    def __rotate(self, node):
+        if node.height is 2:
+            print('l')
+            if node.right.height is 2:
+                pass
+            pass
+        elif node.height is -2:
+            print('r')
+
+            pass
         pass
 
     def __ll_rotate(self):
+        """
+               z                                      y
+              / \                                   /   \
+             y   T4      Right Rotate (z)          x      z
+            / \          - - - - - - - - ->      /  \    /  \
+           x   T3                               T1  T2  T3  T4
+          / \
+        T1   T2
+        """
         pass
 
     def __rr_rotate(self):
+        """
+             z                               z                           x
+            / \                            /   \                        /  \
+           y   T4  Left Rotate (y)        x    T4  Right Rotate(z)    y      z
+          / \      - - - - - - - - ->    /  \      - - - - - - - ->  / \    / \
+        T1   x                          y    T3                    T1  T2 T3  T4
+            / \                        / \
+          T2   T3                    T1   T2
+        """
+
         pass
 
     def __lr_rotate(self):
+        """
+          z                                y
+         /  \                            /   \
+        T1   y     Left Rotate(z)       z      x
+            /  \   - - - - - - - ->    / \    / \
+           T2   x                     T1  T2 T3  T4
+               / \
+             T3  T4
+        """
+
         pass
 
     def __rl_rotate(self):
+        """
+           z                            z                            x
+          / \                          / \                          /  \
+        T1   y   Right Rotate (y)    T1   x      Left Rotate(z)   z      y
+            / \  - - - - - - - - ->     /  \   - - - - - - - ->  / \    / \
+           x   T4                      T2   y                  T1  T2  T3  T4
+          / \                              /  \
+        T2   T3                           T3   T4
+        """
+
         pass
 
 

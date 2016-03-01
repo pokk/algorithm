@@ -6,20 +6,8 @@ class BinaryTreeNode:
         self.parent = None
         self.left = None
         self.data = obj
-        self.right = None
-
-    def __str__(self):
-        return 'data: %s \t,parent: %s  \t,l-child: %s \t,r-child: %s' \
-               % (self.data,
-                  self.parent.data if self.parent else None,
-                  self.left.data if self.left else None,
-                  self.right.data if self.right else None)
-
-
-class AvlTreeNode(BinaryTreeNode):
-    def __init__(self, obj):
-        super().__init__(obj)
         self.height = 0
+        self.right = None
 
     def __str__(self):
         return 'data: %s \t,parent: %s  \t,l-child: %s \t,r-child: %s \t,height: %s' \
@@ -28,6 +16,21 @@ class AvlTreeNode(BinaryTreeNode):
                   self.left.data if self.left else None,
                   self.right.data if self.right else None,
                   self.height)
+
+
+class AvlTreeNode(BinaryTreeNode):
+    def __init__(self, obj):
+        super().__init__(obj)
+        self.balance_factor = None
+
+    def __str__(self):
+        return 'data: %s \t,parent: %s  \t,l-child: %s \t,r-child: %s \t,height: %s \t,b_factor: %s' \
+               % (self.data,
+                  self.parent.data if self.parent else None,
+                  self.left.data if self.left else None,
+                  self.right.data if self.right else None,
+                  self.height,
+                  self.balance_factor)
 
 
 class LinkedListNode:

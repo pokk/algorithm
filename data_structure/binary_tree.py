@@ -1,30 +1,44 @@
 """ Created by Jieyi on 2/11/16. """
 from data_structure.__interface__ import BinaryTreeNode
+from data_structure.stack import Stack
 
 
 class BinaryTree:
     def __init__(self):
+        self.__stack = Stack()
         self._head = None
 
     def add(self, obj):
-        if self._head is None:
-            self._head = BinaryTreeNode(obj)
-            return
+        def inner_add(obj):
+            if self._head is None:
+                self._head = BinaryTreeNode(obj)
+                return
 
-        th = self._head
+            th = self._head
+            while 1:
+                self.__stack.push(th)
+                if obj > th.data:
+                    if th.right is not None:
+                        th = th.right
+                    else:
+                        th.right = BinaryTreeNode(obj)
+                        return
+                elif obj < th.data:
+                    if th.left is not None:
+                        th = th.left
+                    else:
+                        th.left = BinaryTreeNode(obj)
+                        return
+
+        inner_add(obj)
+
+        # TODO: Count the height.
         while 1:
-            if obj > th.data:
-                if th.right is not None:
-                    th = th.right
-                else:
-                    th.right = BinaryTreeNode(obj)
-                    return
-            elif obj < th.data:
-                if th.left is not None:
-                    th = th.left
-                else:
-                    th.left = BinaryTreeNode(obj)
-                    return
+            n = self.__stack.pop()
+            if not n:
+                break
+
+            self.height(n)
 
     def find(self, obj):
         res = self._find(obj)
@@ -82,8 +96,8 @@ def main():
     bt = BinaryTree()
     bt.add(1)
     bt.add(3)
-    bt.add(0)
-    bt.add(4)
+    # bt.add(0)
+    # bt.add(4)
 
     bt.show()
 
