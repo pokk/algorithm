@@ -1,14 +1,42 @@
 """ Created by wu.jieyi on 2016/02/24. """
+from data_structure.__interface__ import AvlTreeNode
 from data_structure.binary_tree import BinaryTree
+from data_structure.stack import Stack
 
 
 class AVLTree(BinaryTree):
     def __init__(self):
         super(AVLTree, self).__init__()
 
+        self.__stack = Stack()
+
     def add(self, obj):
-        super().add(obj)
+        def inner_add(node, obj):
+            self.__stack.push(node)
+            if obj > node.data:
+                if not node.right:
+                    node.right = AvlTreeNode(obj)
+                else:
+                    inner_add(node.right, obj)
+            elif obj < node.data:
+                if not node.left:
+                    node.left = AvlTreeNode(obj)
+                else:
+                    inner_add(node.left, obj)
+
+        if not self._head:
+            self._head = AvlTreeNode(obj)
+        else:
+            inner_add(self._head, obj)
+
         self.__cal_height(self.head)
+        while 1:
+            re_node = self.__stack.pop()
+            if not re_node:
+                break
+            if abs(re_node.height) >= 2:
+                print('you have problem!!!')
+            print(re_node.data, re_node.height)
 
     def del_node(self, node):
         pass
@@ -24,10 +52,24 @@ class AVLTree(BinaryTree):
             self.__cal_height(node.left)
             self.__cal_height(node.right)
 
+    def __rotate(self):
+        pass
+
+    def __ll_rotate(self):
+        pass
+
+    def __rr_rotate(self):
+        pass
+
+    def __lr_rotate(self):
+        pass
+
+    def __rl_rotate(self):
+        pass
+
 
 def main():
-    print("hello world")
-    arr = [1, 3, 0, 4]
+    arr = [1, 2, 3]
 
     avl_tree = AVLTree()
     for num in arr:
