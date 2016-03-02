@@ -26,11 +26,13 @@ class AVLTree(BinaryTree):
                 else:
                     inner_add(node.left, obj)
 
+        # If the head is null.
         if not self._head:
             self._head = AvlTreeNode(obj)
         else:
             inner_add(self._head, obj)
 
+        # Re-balance and calculate height and balance factory for each passed node.
         while 1:
             re_node = self.__stack.pop()
             if not re_node:
