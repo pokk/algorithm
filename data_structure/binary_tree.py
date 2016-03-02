@@ -52,6 +52,7 @@ class BinaryTree:
     def show(self):
         # self._in_order(self._head)
         self._pre_order(self._head)
+        # self._post_order(self._head)
 
     def _find(self, obj):
         res = None
