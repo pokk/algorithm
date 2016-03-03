@@ -38,7 +38,7 @@ class AVLTree(BinaryTree):
             if not re_node:
                 break
             re_node.height = self.height(re_node)
-            re_node.balance_factor = self.__cal_balance_facotr(re_node)
+            re_node.balance_factor = self.__balance_facotr(re_node)
 
             # Here is problem node.
             if abs(re_node.balance_factor) is 2:
@@ -47,21 +47,37 @@ class AVLTree(BinaryTree):
                 self.__reset_tree_height_factor(self._head)
 
     def del_node(self, node):
-        pass
+        del_node = self._find(node)
+        del_node_parent = del_node.parent if del_node.parent else None
+
+        # No children tree.
+        if not del_node.left and not del_node.right:
+            self.__del_child(del_node_parent, del_node)
+        # No left child tree then catch the right child tree.
+        elif not del_node.left:
+            self.__re_connect_child(del_node_parent, del_node.right)
+            del del_node
+        # There are children tree. Change the biggest node of left child tree.
+        else:
+            biggest_node = self.find_biggest(del_node.left)
+            del_node.data, biggest_node.data = biggest_node.data, del_node.data
+            del biggest_node
+
+        # Reset whole tree.
+        self.__reset_tree_height_factor(del_node_parent)
+        # TODO: Re-balance. Check it from leaves.
 
     def __reset_tree_height_factor(self, node):
+        """
+        Re-calculate each node of tree's height and balance factor from node.
+
+        :param node: Start from node.
+        """
         if node:
             self.__reset_tree_height_factor(node.left)
             self.__reset_tree_height_factor(node.right)
             node.height = self.height(node)
-            node.balance_factor = self.__cal_balance_facotr(node)
-
-    def __cal_balance_facotr(self, node):
-        if not node.left and not node.right:
-            return 0
-        left_height = node.left.height if node.left else -1
-        right_height = node.right.height if node.right else -1
-        return left_height - right_height
+            node.balance_factor = self.__balance_facotr(node)
 
     def __re_balance(self, node):
         if node.balance_factor is 2:
@@ -137,22 +153,53 @@ class AVLTree(BinaryTree):
             inner_right_rotate(node)
 
         # Reset the top of the parent's child.
-        if node_parent:
-            if node_parent.data > y.data:
-                node_parent.left = y
+        self.__re_connect_child(node_parent, y)
+
+    def __re_connect_child(self, parent, new_node):
+        if parent:
+            if parent.data > new_node.data:
+                parent.left = new_node
+                new_node.parent = parent.left
             else:
-                node_parent.right = y
+                parent.right = new_node
+                new_node.parent = parent.right
         else:
-            y.parent = None
-            self._head = y
+            new_node.parent = None
+            self._head = new_node
+
+    def find_biggest(self, node):
+        if node.right:
+            return self.find_biggest(node.right)
+        else:
+            return node
+
+    def __del_child(self, parent, child):
+        child.parent = None
+        if parent.left is child:
+            parent.left = None
+        elif parent.right is child:
+            parent.right = None
+
+        del child
+
+    def __balance_facotr(self, node):
+        if not node.left and not node.right:
+            return 0
+        left_height = node.left.height if node.left else -1
+        right_height = node.right.height if node.right else -1
+        return left_height - right_height
 
 
 def main():
-    arr = [7, 4, 6, 5, 1, 3]
+    arr = [7, 4, 8, 5, 1, 3, 6]
     avl_tree = AVLTree()
     for num in arr:
         avl_tree.add(num)
 
+    avl_tree.show()
+
+    avl_tree.del_node(4)
+    print('=========delete==========')
     avl_tree.show()
 
 
