@@ -65,6 +65,7 @@ class AVLTree(BinaryTree):
 
         :param node: Start from node.
         """
+
         if node:
             self.__reset_tree_height_factor(node.left)
             self.__reset_tree_height_factor(node.right)
@@ -98,6 +99,7 @@ class AVLTree(BinaryTree):
 
             :param inner_node: 'z' node.
             """
+
             nonlocal y
             inner_node_parent = inner_node.parent
             z = inner_node
@@ -123,6 +125,7 @@ class AVLTree(BinaryTree):
 
             :param inner_node: 'z' node.
             """
+
             nonlocal y
             inner_node_parent = inner_node.parent
             z = inner_node
