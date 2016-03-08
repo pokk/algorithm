@@ -11,20 +11,20 @@ class AVLTree(BinaryTree):
         self.__stack = Stack()
 
     def add(self, obj):
-        def inner_add(node, obj):
+        def inner_add(node, inner_obj):
             self.__stack.push(node)
-            if obj > node.data:
+            if inner_obj > node.data:
                 if not node.right:
-                    node.right = AvlTreeNode(obj)
+                    node.right = AvlTreeNode(inner_obj)
                     node.right.parent = node
                 else:
-                    inner_add(node.right, obj)
-            elif obj < node.data:
+                    inner_add(node.right, inner_obj)
+            elif inner_obj < node.data:
                 if not node.left:
-                    node.left = AvlTreeNode(obj)
+                    node.left = AvlTreeNode(inner_obj)
                     node.left.parent = node
                 else:
-                    inner_add(node.left, obj)
+                    inner_add(node.left, inner_obj)
 
         # If the head is null.
         if not self._head:
@@ -50,22 +50,14 @@ class AVLTree(BinaryTree):
         del_node = self._find(node)
         del_node_parent = del_node.parent if del_node.parent else None
 
-        # No children tree.
-        if not del_node.left and not del_node.right:
-            self.__del_child(del_node_parent, del_node)
-        # No left child tree then catch the right child tree.
-        elif not del_node.left:
-            self.__re_connect_child(del_node_parent, del_node.right)
-            del del_node
-        # There are children tree. Change the biggest node of left child tree.
-        else:
-            biggest_node = self.find_biggest(del_node.left)
-            del_node.data, biggest_node.data = biggest_node.data, del_node.data
-            del biggest_node
+        if not super(AVLTree, self).del_node(node):
+            return False
 
-        # Reset whole tree.
+        # Reset whole tree from the node we wanna delete.
         self.__reset_tree_height_factor(del_node_parent)
         # TODO: Re-balance. Check it from leaves.
+
+        return True
 
     def __reset_tree_height_factor(self, node):
         """
@@ -153,34 +145,7 @@ class AVLTree(BinaryTree):
             inner_right_rotate(node)
 
         # Reset the top of the parent's child.
-        self.__re_connect_child(node_parent, y)
-
-    def __re_connect_child(self, parent, new_node):
-        if parent:
-            if parent.data > new_node.data:
-                parent.left = new_node
-                new_node.parent = parent.left
-            else:
-                parent.right = new_node
-                new_node.parent = parent.right
-        else:
-            new_node.parent = None
-            self._head = new_node
-
-    def find_biggest(self, node):
-        if node.right:
-            return self.find_biggest(node.right)
-        else:
-            return node
-
-    def __del_child(self, parent, child):
-        child.parent = None
-        if parent.left is child:
-            parent.left = None
-        elif parent.right is child:
-            parent.right = None
-
-        del child
+        self._re_connect_child(node_parent, y)
 
     def __balance_facotr(self, node):
         if not node.left and not node.right:

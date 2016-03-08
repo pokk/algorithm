@@ -27,7 +27,7 @@ The first time practicing program is as below:
 7. vector & array list.  // not finished.
 
 
-2016/02/04
+2016/02/14
 The second time practicing program is as below:
 1. avl tree.
 2. heap.

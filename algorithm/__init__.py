@@ -14,7 +14,7 @@ The first time practicing program is as below:
 5. tree. (insert & find & delete function)
 
 
-2016/02/04
+2016/02/14
 The second time practicing program is as below:
 1. combination.
 2. pascal's formula.
