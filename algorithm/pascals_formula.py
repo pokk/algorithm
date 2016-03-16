@@ -29,6 +29,7 @@ def pascal(power):
         pascal_arr = [1, 1]
         for i in range(1, power):
             pascal_arr = [pascal_arr[j] + pascal_arr[j + 1] for j in range(len(pascal_arr) - 1)]
+            # the front and back add '1'.
             pascal_arr[0:0] = [1]
             pascal_arr.append(1)
     # print(pascal_arr)
