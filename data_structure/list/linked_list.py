@@ -1,5 +1,5 @@
 """ Created by Jieyi on 2/11/16. """
-from data_structure.__interface__ import LinkedListNode
+from data_structure.list.__interface__ import LinkedListNode
 
 
 class TestObj:

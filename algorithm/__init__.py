@@ -1,8 +1,7 @@
 """ Created by wu.jieyi on 2016/02/24. """
 
 __all__ = ['__interface__', 'binary_search', 'combination', 'dfs_bfs', 'merge_sort',
-           'pascals_formula', 'permutation', 'quick_sort', 'tower_of_hanoi',
-           'tree_insert_find_delete']
+           'pascals_formula', 'permutation', 'quick_sort', 'tower_of_hanoi']
 
 """
 2016/02/08

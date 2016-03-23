@@ -1,4 +1,4 @@
-""" Created by Jieyi on 2/24/16. """
+""" Created by wu.jieyi on 2016/03/23. """
 
 
 class BinaryTreeNode:
@@ -31,16 +31,6 @@ class AvlTreeNode(BinaryTreeNode):
                   self.right.data if self.right else None,
                   self.height,
                   self.balance_factor)
-
-
-class LinkedListNode:
-    def __init__(self, obj):
-        self.previous = None
-        self.data = obj
-        self.next = None
-
-    def __str__(self):
-        return str(self.data)
 
 
 def main():

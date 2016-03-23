@@ -1,6 +1,6 @@
 """ Created by Jieyi on 2/11/16. """
-from data_structure.__interface__ import BinaryTreeNode
 from data_structure.stack import Stack
+from data_structure.tree.__interface__ import BinaryTreeNode
 
 
 class BinaryTree:

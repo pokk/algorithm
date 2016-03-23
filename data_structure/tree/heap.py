@@ -2,9 +2,9 @@
 from abc import ABCMeta, abstractmethod
 
 from algorithm.dfs_bfs import BFS
-from data_structure.__interface__ import BinaryTreeNode
-from data_structure.binary_tree import BinaryTree
 from data_structure.queue import Queue
+from data_structure.tree.__interface__ import BinaryTreeNode
+from data_structure.tree.binary_tree import BinaryTree
 
 
 class Heap(BinaryTree, metaclass=ABCMeta):

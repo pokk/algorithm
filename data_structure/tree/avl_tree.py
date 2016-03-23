@@ -1,7 +1,7 @@
 """ Created by wu.jieyi on 2016/02/24. """
-from data_structure.__interface__ import AvlTreeNode
-from data_structure.binary_tree import BinaryTree
 from data_structure.stack import Stack
+from data_structure.tree.__interface__ import AvlTreeNode
+from data_structure.tree.binary_tree import BinaryTree
 
 
 class AVLTree(BinaryTree):
