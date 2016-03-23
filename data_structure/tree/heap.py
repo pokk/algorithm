@@ -1,7 +1,7 @@
 """ Created by wu.jieyi on 2016/02/24. """
 from abc import ABCMeta, abstractmethod
 
-from algorithm.dfs_bfs import BFS
+from algorithm.search.dfs_bfs import BFS
 from data_structure.queue import Queue
 from data_structure.tree.__interface__ import BinaryTreeNode
 from data_structure.tree.binary_tree import BinaryTree
