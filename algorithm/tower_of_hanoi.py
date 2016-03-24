@@ -17,6 +17,7 @@ class TowerOfHanoi:
         :param t_c: Tower C.
         :param dish: The number of dish.
         """
+
         if dish is 0:
             return
 

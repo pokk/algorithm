@@ -8,6 +8,10 @@ from algorithm.graph.__init__ import arr_map
 def dijkstra(path_map, start=0):
     """
     This is following to Dijkstra's algorithm. The shortest path of single vertex to all vertex.
+    ** NOTE: This algorithm's limitation is the path cannot be minus value.
+
+    :param start: The beginning vertex.
+    :param path_map: A direction graph.
     """
 
     arr_shortest_path = path_map[start]
@@ -29,7 +33,6 @@ def dijkstra(path_map, start=0):
         for i in range(len(arr_shortest_path)):
             if arr_shortest_path[i] > arr_shortest_path[mini_vertex] + path_map[mini_vertex][i]:
                 arr_shortest_path[i] = arr_shortest_path[mini_vertex] + path_map[mini_vertex][i]
-        print(arr_shortest_path)
 
     return arr_shortest_path
 
