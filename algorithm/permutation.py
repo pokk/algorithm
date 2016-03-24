@@ -41,7 +41,7 @@ class Permutation(Numeral):
         Johnson–Trotter algorithm.
         1. Init two arrays from 0 to n-1 for calculate the direction and the position.
         2. Find the biggest movable number in the sequence.
-           (Movable number: a number of direction is smaller than the number)
+           (Movable number: the direction of a number is smaller than the number)
         3. Swap the biggest movable number and the number direction's number.
         4. Change all of the number's direction are smaller than the biggest movable number.
 
