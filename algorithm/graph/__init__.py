@@ -43,7 +43,7 @@ def draw_graph(arr_graph):
     nx.draw_networkx_edge_labels(g, pos, edge_set, label_pos=0.3)
 
     plt.axis('off')
-    plt.savefig("weighted_graph.png")  # Save as png.
+    # plt.savefig("weighted_graph.png")  # Save as png.
     plt.show()  # Display
 
 
