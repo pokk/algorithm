@@ -23,6 +23,8 @@ def init():
 
     plt.xlabel('height')  # x axis label.
     plt.ylabel('weight')  # y axis label.
+    plt.xlim(80, 220)
+    plt.ylim(20, 110)
 
 
 def knn(n, h_t, w_t):
@@ -50,7 +52,7 @@ init()
 
 # Update the canvas.
 def update(i, fig, im):
-    res = knn(3, h_r[i], w_r[i])
+    res = knn(5, h_r[i], w_r[i])
     p = None
 
     if res is 'big':

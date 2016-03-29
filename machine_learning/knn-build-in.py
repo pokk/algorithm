@@ -5,11 +5,11 @@ from numpy import ravel
 from sklearn.neighbors import KNeighborsClassifier
 
 
-def knnClassify(trainData, trainLabel, testData):
-    knnClf = KNeighborsClassifier(n_neighbors=2)  # default:k = 5,defined by yourself:KNeighborsClassifier(n_neighbors=10)
-    knnClf.fit(trainData, ravel(trainLabel))
-    testLabel = knnClf.predict(testData)
-    return testLabel
+def knn_classify(train_data, train_label, test_data):
+    knn_clf = KNeighborsClassifier(n_neighbors=2)  # default:k = 5,defined by yourself:KNeighborsClassifier(n_neighbors=10)
+    knn_clf.fit(train_data, ravel(train_label))
+    test_label = knn_clf.predict(test_data)
+    return test_label
 
 
 h = [180, 175, 160, 165, 185, 190, 170, 155, 150, 160]  # Height
@@ -30,5 +30,5 @@ f = np.array([190, 100,
               160, 60])
 f.shape = -1, 2
 
-test_label = knnClassify(t, l, f)
-print(test_label)
+t_l = knn_classify(t, l, f)
+print(t_l)
