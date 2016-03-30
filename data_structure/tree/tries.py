@@ -1,10 +1,10 @@
 """ Created by Jieyi on 2/11/16. """
-import collections
+from collections import OrderedDict
 
 
 class TriesNode:
     def __init__(self):
-        self.node = collections.OrderedDict.fromkeys([chr(c) for c in range(ord('a'), ord('z') + 1)], None)
+        self.node = OrderedDict.fromkeys([chr(c) for c in range(ord('a'), ord('z') + 1)], None)
 
     def __str__(self):
         res = {}
