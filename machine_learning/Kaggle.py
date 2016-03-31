@@ -28,8 +28,8 @@ class LoadData:
             res = func(*args, **kwargs)
             print('finish calculating...')
 
-            print('saving results into file...')
-            self.save_result(self._format_result(res), ''.join([decoratee.__class__.__name__, '.csv']))
+            # print('saving results into file...')
+            # self.save_result(self._format_result(res), ''.join([decoratee.__class__.__name__, '.csv']))
             return res
 
         return wrapper
@@ -39,12 +39,12 @@ class LoadData:
         data_set = pandas.read_csv(self.train_filename)
         # labels = dataset[:,0]  # La colonna 0 rappresenta le labels
         # data = dataset[:,1:]  # I dati (in unica riga delle immagini)
-        return data_set.drop('label', axis=1)[:100], data_set['label'][:100]
+        return data_set.drop('label', axis=1), data_set['label']
 
     def load_test(self):
         print('loading test data...')
         df_test = pandas.read_csv(self.test_filename)
-        return df_test[:100]
+        return df_test
 
     def _format_result(self, res):
         return OrderedDict(zip(self.header, [numpy.array([index for index in range(1, len(res) + 1)]), res]))
@@ -58,10 +58,34 @@ class Classify(metaclass=ABCMeta):
         self.train = None
         self.label = None
         self.test = None
+        self.classification = None
+
+    def __new__(cls, *args, **kwargs):
+        if cls.__dict__.get('classify'):
+            raise SyntaxError('Overriding classify is not allowed')
+        return super().__new__(cls, *args, **kwargs)
 
     @abstractmethod
-    def classify(self):
+    def method(self):
         pass
+
+    @LoadData('train.csv', 'test.csv')
+    def classify(self):
+        self.method()
+        self._modeling(self.train[:int(len(self.train) / 10)], self.label[:int(len(self.label) / 10)])
+        return self.score(self.train[int(len(self.train) / 100):], self.label[int(len(self.label) / 100):])
+        # return self._predict()
+
+    def score(self, known_data, known_label):
+        return self.classification.score(known_data, known_label)
+
+    def _predict(self):
+        print('predicting...')
+        return self.classification.predict(self.test)
+
+    def _modeling(self, train_data, train_label):
+        print('modeling...')
+        self.classification.fit(train_data, ravel(train_label))
 
 
 class KnnClassify(Classify):
@@ -69,23 +93,13 @@ class KnnClassify(Classify):
     K-nearest neighbor.
     """
 
-    @LoadData('train.csv', 'test.csv')
-    def classify(self):
-        knn_clf = KNeighborsClassifier()  # default:k = 5,defined by yourself:KNeighborsClassifier(n_neighbors=10)
-        knn_clf.fit(self.train, ravel(self.label))
-        test_label = knn_clf.predict(self.test)
-
-        return test_label
+    def method(self):
+        self.classification = KNeighborsClassifier()  # default:k = 5,defined by yourself:KNeighborsClassifier(n_neighbors=10)
 
 
 class RandomForest(Classify):
-    @LoadData('train.csv', 'test.csv')
-    def classify(self):
-        rf_clf = RandomForestClassifier()
-        rf_clf.fit(self.train, ravel(self.label))
-        test_label = rf_clf.predict(self.test)
-
-        return test_label
+    def method(self):
+        self.classification = RandomForestClassifier()
 
 
 class Recognizer:
@@ -93,7 +107,7 @@ class Recognizer:
         self._classify_strategy = strategy
 
     def execute(self):
-        self._classify_strategy.classify()
+        print(self._classify_strategy.classify())
 
     @property
     def classify(self):
