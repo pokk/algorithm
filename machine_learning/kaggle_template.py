@@ -38,6 +38,13 @@ class LoadData:
 
     @abstractmethod
     def _load_train_and_label(self):
+        """
+        You have to return two variable.
+
+        The first: It will be training data without labels.
+        The second: It will be training data's labels.
+        """
+
         return pandas.read_csv(self.train_filename)
 
     @abstractmethod
