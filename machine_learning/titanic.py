@@ -1,9 +1,11 @@
 """ Created by wu.jieyi on 2016/03/31. """
+from _operator import itemgetter
 from collections import OrderedDict
 
 import numpy
 from sklearn.ensemble.forest import RandomForestClassifier
 
+from machine_learning import testing_training_number
 from machine_learning.kaggle_template import LoadData, Classify, Recognizer
 
 
@@ -26,7 +28,7 @@ class LoadDataFromCSV(LoadData):
         # Modify sex from string to int.
         data_set['Sex'] = data_set['Sex'].map({'female': 1, 'male': 0}).astype(int)
         # Modify age from float to int.
-        data_set.Age.fillna(90, inplace=True)
+        data_set.Age.fillna(data_set.Age.median(), inplace=True)
         data_set.Age = data_set.Age.astype(int)
 
         data_set.Name = data_set.Name.str.replace('|'.join(ms_list), 'Miss')
@@ -42,10 +44,10 @@ class LoadDataFromCSV(LoadData):
         # Modify sex from string to int.
         data_test['Sex'] = data_test['Sex'].map({'female': 1, 'male': 0}).astype(int)
         # Modify age from float to int.
-        data_test.Age.fillna(90, inplace=True)
+        data_test.Age.fillna(data_test.Age.median(), inplace=True)
         data_test.Age = data_test.Age.astype(int)
 
-        data_test.Fare.fillna(34, inplace=True)
+        data_test.Fare.fillna(data_test.Fare.median(), inplace=True)
 
         self.test_passenger_id = data_test.PassengerId.iloc[0]
 
@@ -62,7 +64,21 @@ class RFClassify(Classify):
         return super(RFClassify, self).classify()
 
     def method(self):
-        self.classification = RandomForestClassifier()
+        self.classification = RandomForestClassifier(n_estimators=14, random_state=30, min_samples_leaf=3, oob_score=True)
+
+    @LoadDataFromCSV('../train.csv', '../test.csv')
+    def accuracy(self):
+        n_estimators = 100
+        min_samples_leaf = 300
+        res = []
+
+        for i in range(1, n_estimators):
+            for j in range(1, min_samples_leaf):
+                self.classification = RandomForestClassifier(n_estimators=i, random_state=30, min_samples_leaf=j)
+                self._modeling(self.train[:testing_training_number], self.label[:testing_training_number])
+                res.append((i, j, self.score(self.train[testing_training_number:], self.label[testing_training_number:])))
+
+        return max(res, key=itemgetter(2))
 
 
 def main():

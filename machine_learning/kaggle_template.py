@@ -8,6 +8,8 @@ import numpy
 import pandas
 from numpy import ravel
 
+from __init__ import testing
+
 
 class LoadData:
     """
@@ -30,8 +32,9 @@ class LoadData:
             res = func(*args, **kwargs)
             print('finish calculating...')
 
-            print('saving results into file...')
-            self._save_result(self._format_result(res), ''.join([decoratee.__class__.__name__, '.csv']))
+            if not testing:
+                print('saving results into file...')
+                self._save_result(self._format_result(res), ''.join([decoratee.__class__.__name__, '.csv']))
             return res
 
         return wrapper
@@ -89,9 +92,6 @@ class Classify(metaclass=ABCMeta):
         self.method()
         self._modeling(self.train, self.label)
         return self._predict()
-        # Testing accuracy.
-        # self._modeling(self.train[:700], self.label[:700])
-        # return self.score(self.train[700:], self.label[700:])
 
     def score(self, known_data, known_label):
         return self.classification.score(known_data, known_label)
@@ -104,6 +104,9 @@ class Classify(metaclass=ABCMeta):
         print('modeling...')
         self.classification.fit(train_data, ravel(train_label))
 
+    def accuracy(self):
+        pass
+
 
 class Recognizer:
     """
@@ -115,6 +118,9 @@ class Recognizer:
 
     def execute(self):
         print(self._classify_strategy.classify())
+
+    def test_accuracy(self):
+        print(self._classify_strategy.accuracy())
 
     @property
     def classify(self):
