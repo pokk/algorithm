@@ -17,7 +17,7 @@ class LoadData:
     def __init__(self, train_file_name, test_file_name):
         self.train_filename = train_file_name
         self.test_filename = test_file_name
-        self.header = ['ImageId', 'Label']
+        self.header = []
 
     def __call__(self, func):
         @wraps(func)
@@ -51,11 +51,12 @@ class LoadData:
     def _load_test(self):
         return pandas.read_csv(self.test_filename)
 
-    def _save_result(self, result, file_name):
-        pandas.DataFrame(result).to_csv(file_name, encoding='utf-8', header=self.header, index=False)
-
+    @abstractmethod
     def _format_result(self, res):
         return OrderedDict(zip(self.header, [numpy.array([index for index in range(1, len(res) + 1)]), res]))
+
+    def _save_result(self, result, file_name):
+        pandas.DataFrame(result).to_csv(file_name, encoding='utf-8', header=self.header, index=False)
 
 
 class Classify(metaclass=ABCMeta):
@@ -88,6 +89,9 @@ class Classify(metaclass=ABCMeta):
         self.method()
         self._modeling(self.train, self.label)
         return self._predict()
+        # Testing accuracy.
+        # self._modeling(self.train[:700], self.label[:700])
+        # return self.score(self.train[700:], self.label[700:])
 
     def score(self, known_data, known_label):
         return self.classification.score(known_data, known_label)

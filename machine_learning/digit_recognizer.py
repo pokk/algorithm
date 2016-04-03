@@ -8,6 +8,7 @@ class LoadDataFromCSV(LoadData):
     def _load_train_and_label(self):
         print('loading training data and label data...')
         data_set = super()._load_train_and_label()
+        self.header = ['ImageId', 'Label']
         # labels = dataset[:,0]  # La colonna 0 rappresenta le labels
         # data = dataset[:,1:]  # I dati (in unica riga delle immagini)
         return data_set.drop('label', axis=1), data_set['label']
