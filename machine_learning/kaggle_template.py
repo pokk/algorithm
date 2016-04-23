@@ -101,7 +101,7 @@ class Classify(metaclass=ABCMeta):
         return self.classification.predict(self.test)
 
     def _modeling(self, train_data, train_label):
-        print('modeling...')
+        # print('modeling...')
         self.classification.fit(train_data, ravel(train_label))
 
     def accuracy(self):
