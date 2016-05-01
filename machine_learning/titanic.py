@@ -14,7 +14,7 @@ class LoadDataFromCSV(LoadData):
         super().__init__(train_file_name, test_file_name)
         self.header = ['PassengerId', 'Survived']
         self.test_passenger_id = 0
-        self._drop_label = ['PassengerId', 'Survived', 'Name', 'Ticket', 'Cabin', 'Embarked']
+        self._drop_label = ['PassengerId', 'Survived', 'Name', 'Ticket', 'Cabin', 'Embarked', 'SibSp', 'Parch', 'Fare']
 
     def _load_train_and_label(self):
         data_set = super()._load_train_and_label()
@@ -76,7 +76,7 @@ class RFClassify(Classify):
         return super(RFClassify, self).classify()
 
     def method(self):
-        self.classification = RandomForestClassifier(n_estimators=14, random_state=30, min_samples_leaf=4, oob_score=True)
+        self.classification = RandomForestClassifier(n_estimators=4, random_state=30, min_samples_leaf=4, oob_score=False)
 
     @LoadDataFromCSV('../train.csv', '../test.csv')
     def accuracy(self):
@@ -91,12 +91,23 @@ class RFClassify(Classify):
         return max(res, key=itemgetter(2))
 
 
+class TestClassify(Classify):
+    def __init__(self):
+        super().__init__()
+
+    @LoadDataFromCSV('../train.csv', '../test.csv')
+    def classify(self):
+        return self.test['Sex'].map({1: 1, 0: 0}).astype(int)
+
+    def method(self):
+        pass
+
+
 def main():
     r = Recognizer()
     r.classify = RFClassify()
     # r.test_accuracy()
     r.execute()
-
 
 if __name__ == '__main__':
     main()
