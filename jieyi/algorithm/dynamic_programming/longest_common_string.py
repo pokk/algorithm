@@ -1,8 +1,14 @@
 """ Created by Jieyi on 6/4/16. """
 from copy import deepcopy
 
+from input_data.dynamic_programming.longest_common_string import lcs_str1, lcs_str2
+
 
 class LCS:
+    """
+    Counting and calculate the longest common string algorithm.
+    """
+
     def __init__(self, str1=None, str2=None):
         self._str1 = str1
         self._str2 = str2
@@ -10,17 +16,29 @@ class LCS:
         self._suffix_array = []
 
     def _init_suffix(self):
+        """
+        initialize the suffix array.
+        """
+
         tmp = []
         value = {'direct': 'x', 'len': 0}
-        for _ in self._str2:
+
+        for _ in self._str2:  # for out-side.
             tmp.clear()
             tmp.append(deepcopy(value))  # pre-advanced.
-            for _ in self._str1:
+            for _ in self._str1:  # for in-side.
                 tmp.append(deepcopy(value))
             self._suffix_array.append(deepcopy(tmp))
         self._suffix_array.append(deepcopy(tmp))  # pre-advanced.
 
     def _make_suffix_array(self, str1, str2):
+        """
+        LCS algorithm.
+
+        :param str1: comparing string.
+        :param str2: comparing string.
+        """
+
         for i, s in enumerate(str2):
             for j, t in enumerate(str1):
                 if t == s:
@@ -34,30 +52,29 @@ class LCS:
 
     def _backtracking(self):
         """
-        problem:
-        1. switch case return by dict.
-        2. array size.
+        using backtracking to find the lcs.
         """
 
         def inner_backtracking(i, j):
-            print(i, j)
-            # if self._suffix_array[i][j]['direct'] == 'x':
-            #     return
-            if self._suffix_array[i][j]['direct'] == 'ul':
-                print(i, j)
-                inner_backtracking(i - 1, j - 1)
-            elif self._suffix_array[i][j]['direct'] == 'u':
-                inner_backtracking(i - 1, j)
-            elif self._suffix_array[i][j]['direct'] == 'l':
-                inner_backtracking(i, j - 1)
+            {
+                'ul': lambda: (inner_backtracking(i - 1, j - 1),
+                               self._lcs.append(self._str1[j - 1])),
+                'u': lambda: inner_backtracking(i - 1, j),
+                'l': lambda: inner_backtracking(i, j - 1)
+            }.get(self._suffix_array[i][j]['direct'], lambda: None)()
 
-        inner_backtracking(len(self._str1), len(self._str2))
-        print()
+        inner_backtracking(len(self._str2), len(self._str1))
 
     def res(self):
+        """
+        running the lcs algorithm and backtracking for getting the result.
+
+        :return: (lcs length, lcs string)
+        """
         self._init_suffix()
         self._make_suffix_array(self._str1, self._str2)
         self._backtracking()
+        return self._suffix_array[len(self._str2)][len(self._str1)].get('len'), ''.join(self._lcs)
 
     def show_suffix(self):
         # adjust the view in the console.
@@ -74,17 +91,13 @@ class LCS:
                 print('', end='  ')
 
             for t in s:
-                print(t, sep='', end=' ')
+                print(t.get('len'), sep='', end=' ')
             print()
 
 
 def main():
-    str1 = "fdaifadshi"
-    str2 = "fdaa"
-    lcs = LCS(str1, str2)
-    lcs.res()
-
-    # lcs.show_suffix()
+    lcs = LCS(lcs_str1, lcs_str2)
+    print(lcs.res())
 
 
 if __name__ == '__main__':
