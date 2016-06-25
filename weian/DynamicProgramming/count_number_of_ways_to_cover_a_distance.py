@@ -10,11 +10,14 @@ from input_data.dynamic_programming.way_to_cover_distance import n4
 
 
 def count_by_recurrence(n):
-    if n < 0:
-        return 0
-
     if n == 1:
         return 1
+
+    if n == 2:
+        return 2
+
+    if n == 3:
+        return 4
 
     return count_by_recurrence(n-1) + count_by_recurrence(n-2) + \
            count_by_recurrence(n-3)
