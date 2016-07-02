@@ -89,12 +89,62 @@ def lpm_dp_table(array, n):
     return longest
 
 
+def qsort(array):
+    if len(array) <= 1:
+        return array
+    else:
+        pivot = array[0][0]
+        return qsort([x for x in array[1:] if x[0] < pivot]) + \
+               [pivot] + qsort([x for x in array[1:] if x[0] >= pivot])
+
+
+def lpm_dp_table_by_sorting(array, n):
+    sorting_table = []
+    longest = 0
+
+    for i in range(n):
+        for j in range(n):
+            sorting_table.append([array[i][j], (i, j)])
+
+    qsort(sorting_table)
+
+    dp_table = [[1 for _ in range(n)] for _ in range(n)]
+
+    for _ in sorting_table:
+        value, (i, j) = _[0], _[1]
+        value -= 1
+        if i + 1 < n:
+            if array[i+1][j] == value:
+                dp_table[i+1][j] = dp_table[i][j] + 1
+                longest = max(longest, dp_table[i+1][j])
+                continue
+
+        if j + 1 < n:
+            if array[i][j+1] == value:
+                dp_table[i][j+1] = dp_table[i][j] + 1
+                longest = max(longest, dp_table[i][j+1])
+                continue
+
+        if j > 0:
+            if array[i][j-1] == value:
+                dp_table[i][j-1] = dp_table[i][j] + 1
+                longest = max(longest, dp_table[i][j-1])
+                continue
+
+        if i > 0:
+            if array[i-1][j] == value:
+                dp_table[i-1][j] = dp_table[i][j] + 1
+                longest = max(longest, dp_table[i-1][j])
+                continue
+    return longest
+
+
 def main():
     array = [[1, 2, 9],
              [5, 3, 8],
              [4, 6, 7]]
 
-    print(lpm_dp_table(array, 3))
+    print(lpm_dp_table_by_sorting(array, 3))
 
 if __name__ == '__main__':
     main()
