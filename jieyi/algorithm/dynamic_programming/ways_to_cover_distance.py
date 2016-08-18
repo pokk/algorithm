@@ -1,8 +1,9 @@
 """ Created by Jieyi on 06/22/2016. """
 from input_data.dynamic_programming.way_to_cover_distance import n2
+from jieyi.algorithm.dynamic_programming import DP
 
 
-class WaysToCoverDistance:
+class WaysToCoverDistance(DP):
     """
     Count number of ways to cover a distance.
     It's kind of the Fibonacci sequence.
@@ -20,6 +21,9 @@ class WaysToCoverDistance:
             self._answer_step.append(self._answer_step[i - 1] + self._answer_step[i - 2] + self._answer_step[i - 3])
 
         return self._answer_step[self._step]
+
+    def _backtracking(self):
+        pass
 
     def res(self):
         return self._algorithm()

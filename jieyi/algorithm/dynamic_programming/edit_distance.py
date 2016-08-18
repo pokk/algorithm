@@ -1,9 +1,9 @@
 """ Created by wujieyi on 06/16/2016. """
-
+from jieyi.algorithm.dynamic_programming import DP
 from jieyi.algorithm.dynamic_programming.suffix_matrix import SuffixMatrix
 
 
-class EditDistance:
+class ED(DP):
     def __init__(self, str1=None, str2=None):
         self._suffix_matrix = SuffixMatrix(str1, str2)
         self._matrix = self._suffix_matrix.suffix_matrix
@@ -20,7 +20,7 @@ class EditDistance:
         for j in range(len(self._str2) + 1):
             self._matrix[j][0]['len'] = j
 
-    def _ed_algorithm(self):
+    def _algorithm(self):
         """
         Edit Distance algorithm.
         """
@@ -35,12 +35,12 @@ class EditDistance:
                         min(self._matrix[i + 1][j].get('len'), self._matrix[i][j + 1].get('len'),
                             self._matrix[i][j].get('len')) + 1
 
-    def _back_tracking(self):
+    def _backtracking(self):
         pass
 
     def res(self):
         self._init_matrix()
-        self._ed_algorithm()
+        self._algorithm()
 
         return self._matrix[len(self._str2)][len(self._str1)].get('len')
 
@@ -52,7 +52,7 @@ def main():
     str1 = "abcdef"
     str2 = "azced"
 
-    ed = EditDistance(str1, str2)
+    ed = ED(str1, str2)
     print(ed.res())
 
 

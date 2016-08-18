@@ -1,8 +1,9 @@
 """ Created by Jieyi on 7/6/16. """
 from input_data.dynamic_programming.subset_sum_problem import q1, q2
+from jieyi.algorithm.dynamic_programming import DP
 
 
-class SubsetSumProblem:
+class SubsetSumProblem(DP):
     def __init__(self, set_list, max_total):
         self._list = set_list
         self._total = max_total

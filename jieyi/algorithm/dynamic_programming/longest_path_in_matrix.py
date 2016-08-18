@@ -4,9 +4,10 @@ from operator import itemgetter
 import numpy as np
 
 from input_data.dynamic_programming.longest_path_in_matrix import m1
+from jieyi.algorithm.dynamic_programming import DP
 
 
-class LongestPathInMatrix:
+class LongestPathInMatrix(DP):
     def __init__(self, matrix=None):
         self._matrix = matrix
         self._matrix_dim = (len(self._matrix), len(self._matrix[0]))
@@ -40,6 +41,9 @@ class LongestPathInMatrix:
                 d_c = self._get_coordination_by_direct(coord, self._matrix_dim, direct)
                 if d_c and num + 1 == self._matrix[d_c[0]][d_c[1]]:
                     self._record_step_matrix[d_c[0]][d_c[1]] = self._record_step_matrix[coord[0]][coord[1]] + 1
+
+    def _backtracking(self):
+        pass
 
     def res(self):
         self._preset()

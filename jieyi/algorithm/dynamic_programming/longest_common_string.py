@@ -1,10 +1,11 @@
 """ Created by Jieyi on 6/4/16. """
 
 from input_data.dynamic_programming.longest_common_string import lcs_str1, lcs_str2
+from jieyi.algorithm.dynamic_programming import DP
 from jieyi.algorithm.dynamic_programming.suffix_matrix import SuffixMatrix
 
 
-class LCS:
+class LCS(DP):
     """
     Counting and calculate the longest common string algorithm.
     """
@@ -16,16 +17,13 @@ class LCS:
         self._str2 = str2
         self._lcs = []
 
-    def _make_suffix_array(self, str1, str2):
+    def _algorithm(self):
         """
         LCS algorithm.
-
-        :param str1: comparing string.
-        :param str2: comparing string.
         """
 
-        for i, s in enumerate(str2):
-            for j, t in enumerate(str1):
+        for i, s in enumerate(self._str2):
+            for j, t in enumerate(self._str1):
                 if t == s:
                     self._matrix[i + 1][j + 1]['len'] = self._matrix[i][j].get('len') + 1
                     self._matrix[i + 1][j + 1]['direct'] = 'ul'
@@ -57,7 +55,7 @@ class LCS:
         :return: (lcs length, lcs string)
         """
 
-        self._make_suffix_array(self._str1, self._str2)
+        self._algorithm()
         self._backtracking()
         return self._matrix[len(self._str2)][len(self._str1)].get('len'), ''.join(self._lcs)
 
