@@ -1,4 +1,5 @@
 """ Created by Jieyi on 8/18/16. """
+from input_data.dynamic_programming.binomail_coefficient import input_source
 from jieyi.algorithm.dynamic_programming import DP
 
 
@@ -22,8 +23,9 @@ class BC(DP):
 
 
 def main():
-    b = BC(5, 3)
-    b.res()
+    for c1, c2 in input_source:
+        b = BC(c1, c2)
+        b.res()
 
 
 if __name__ == '__main__':

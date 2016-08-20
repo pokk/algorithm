@@ -1,6 +1,6 @@
 """ Created by Jieyi on 6/4/16. """
 
-from input_data.dynamic_programming.longest_common_string import lcs_str1, lcs_str2
+from input_data.dynamic_programming.longest_common_string import input_source
 from jieyi.algorithm.dynamic_programming import DP
 from jieyi.algorithm.dynamic_programming.suffix_matrix import SuffixMatrix
 
@@ -64,8 +64,9 @@ class LCS(DP):
 
 
 def main():
-    lcs = LCS(lcs_str1, lcs_str2)
-    print(lcs.res())
+    for lcs in input_source:
+        l = LCS(lcs[0], lcs[1])
+        print(l.res())
 
 
 if __name__ == '__main__':

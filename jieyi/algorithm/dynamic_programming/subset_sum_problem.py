@@ -1,5 +1,5 @@
 """ Created by Jieyi on 7/6/16. """
-from input_data.dynamic_programming.subset_sum_problem import q1, q2
+from input_data.dynamic_programming.subset_sum_problem import input_source
 from jieyi.algorithm.dynamic_programming import DP
 
 
@@ -38,11 +38,9 @@ class SubsetSumProblem(DP):
 
 
 def main():
-    input1 = q1
-    input2 = q2
-
-    c = SubsetSumProblem(input2[0], input2[1])
-    print(c.res())
+    for ssp in input_source:
+        c = SubsetSumProblem(ssp[0], ssp[1])
+        print(c.res())
 
 
 if __name__ == '__main__':

@@ -52,8 +52,9 @@ class LongestPathInMatrix(DP):
 
 
 def main():
-    l = LongestPathInMatrix(m1)
-    print(l.res())
+    for lpim in input_source:
+        l = LongestPathInMatrix(m1)
+        print(l.res())
 
 
 if __name__ == '__main__':

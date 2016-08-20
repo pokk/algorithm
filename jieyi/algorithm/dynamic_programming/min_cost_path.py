@@ -1,4 +1,5 @@
 """ Created by Jieyi on 8/18/16. """
+from input_data.dynamic_programming.min_cost_path import input_source
 from jieyi.algorithm.dynamic_programming import DP
 
 
@@ -30,9 +31,9 @@ class MCP(DP):
 
 
 def main():
-    example = [[1, 2, 3], [4, 8, 2], [1, 5, 3]]
-    m = MCP(example)
-    m.res()
+    for mcp in input_source:
+        m = MCP(mcp)
+        m.res()
 
 
 if __name__ == '__main__':

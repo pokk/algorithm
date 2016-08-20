@@ -1,4 +1,5 @@
 """ Created by wujieyi on 06/16/2016. """
+from input_data.dynamic_programming.edit_distance import input_source
 from jieyi.algorithm.dynamic_programming import DP
 from jieyi.algorithm.dynamic_programming.suffix_matrix import SuffixMatrix
 
@@ -49,11 +50,9 @@ class ED(DP):
 
 
 def main():
-    str1 = "abcdef"
-    str2 = "azced"
-
-    ed = ED(str1, str2)
-    print(ed.res())
+    for ed in input_source:
+        res = ED(ed[0], ed[1])
+        print(res.res())
 
 
 if __name__ == '__main__':

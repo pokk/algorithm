@@ -1,5 +1,5 @@
 """ Created by Jieyi on 06/09/2016. """
-from input_data.dynamic_programming.longest_increasing_subsequence import lis_str2
+from input_data.dynamic_programming.longest_increasing_subsequence import input_source
 from jieyi.algorithm.dynamic_programming import DP
 
 
@@ -42,8 +42,9 @@ class LIS(DP):
 
 
 def main():
-    lis = LIS(lis_str2)
-    print(lis.res())
+    for lis in input_source:
+        l = LIS(lis)
+        print(l.res())
 
 
 if __name__ == '__main__':
