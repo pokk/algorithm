@@ -4,6 +4,12 @@ from jieyi.algorithm.dynamic_programming import DP
 
 
 class CC(DP):
+    """
+    Coin Change algorithm is belong to Dynamic Algorithm.
+    The problem's description is as below.
+    http://www.geeksforgeeks.org/dynamic-programming-set-7-coin-change/
+    """
+
     def __init__(self, money, price):
         self._total_money = money
         self._arr_price = price

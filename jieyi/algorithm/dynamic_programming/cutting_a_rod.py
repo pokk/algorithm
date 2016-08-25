@@ -4,6 +4,12 @@ from jieyi.algorithm.dynamic_programming import DP
 
 
 class CR(DP):
+    """
+    Cutting A Rod algorithm is belong to Dynamic Programming.
+    The problem's description is as below.
+    http://www.geeksforgeeks.org/dynamic-programming-set-13-cutting-a-rod/
+    """
+
     def __init__(self, price_arr):
         self._price_array = [0] + price_arr
         self._max_value = self._price_array[:]
