@@ -9,9 +9,6 @@ class CC(DP):
         self._arr_price = price
         self._res_matrix = [[0 for _ in range(self._total_money + 1)] for _ in range(len(self._arr_price) + 1)]
 
-    def _preset(self):
-        pass
-
     def _algorithm(self):
         for i in range(1, len(self._arr_price) + 1):
             for j in range(1, self._total_money + 1):
@@ -25,7 +22,6 @@ class CC(DP):
         pass
 
     def res(self):
-        self._preset()
         self._algorithm()
 
         return self._res_matrix[len(self._arr_price)][self._total_money]
