@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+
 INF = float("INF")
 
 def freq_sum(f, i, length):
