@@ -30,7 +30,6 @@ class PP(DP):
             if i == j:
                 self._res_matrix[i][j] = 0
             else:
-                arr = []
                 for h in range(i, j):
                     self._res_matrix[i][j] = sys.maxsize
                     self._res_matrix[i][j] = min(self._res_matrix[i][j],
