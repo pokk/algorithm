@@ -10,40 +10,63 @@
 "
 """
 
+import input_data.dynamic_programming.word_wrap_problem
+
 INF = float("inf")
 
 
-def word_wrap_problem(string, width):
-    string_split = string.split(" ")
-    string_count = []
-    for index in range(len(string_split)):
-        string_count.append(len(string_split[index]))
+def word_wrap_problem(string_len, width):
+    length = len(string_len)
+    cost_table = [[INF for _ in range(length)] for _ in range(length)]
 
-    dp_table = [[INF for _ in range(len(string_count))] for _ in range(len(
-        string_count))]
+    for i in range(length):
+        for j in range(i, length):
+            cost = sum(string_len[i:j+1]) + (j-i)
+            cost_table[i][j] = (width-cost)**2 if cost <= width else INF
 
-    for i in range(len(string_count)):
-        dp_table[i][i] = width - string_count[i]
+    cost = [INF for _ in range(length)]
+    backtrack = [0 for _ in range(length)]
 
-    for length in range(1, len(string_count)):
-        for i in range(len(string_count)-length):
-            if sum(string_count[i:i+length+1])+length == width:
-                dp_table[i][i+length] = 0
-                print(str(i) + " " + str(i+length))
-                continue
+    cost[0] = cost_table[0][0]
 
-            for j in range(i, i+length):
-                print("[" + str(i) + "][" + str(j) + "] [" + str(j+1) + "]["
-                      + str(i+length) + "]")
-                dp_table[i][i+length] = min(dp_table[i][i+length], dp_table[i][j] + dp_table[j+1][i+length])
+    for l in range(1, length):
+        minimum = INF
+        for i in range(l+1):
+            if i == l:
+                if minimum > cost_table[0][i]:
+                    backtrack[l] = 0
+                minimum = min(minimum, cost_table[0][i])
+            else:
+                if minimum > cost[i] + cost_table[i+1][l]:
+                    backtrack[l] = i+1
+                minimum = min(minimum, cost[i] + cost_table[i+1][l])
 
-    print(string_count)
-    print(dp_table)
+        cost[l] = minimum
 
+    back_tracking(backtrack, length)
+
+    return cost[length-1]
+
+def back_tracking(p, n):
+    now = n - 1
+    while now >= 0:
+        print(str(p[now]) + " pointer to " + str(now))
+        if now <= 0:
+            break
+        elif p[now] == now:
+            now = now - 1
+            continue
+        else:
+            now = p[now] - 1
 
 def main():
-    string = "aaa bb cc ddddd"
-    word_wrap_problem(string, 6)
+    datas = input_data.dynamic_programming.word_wrap_problem.input_source
+
+    for data in datas:
+        string = data[0]
+        width = data[1]
+        word_wrap_problem(string, width)
+        print("\n")
 
 if __name__ == "__main__":
     main()
