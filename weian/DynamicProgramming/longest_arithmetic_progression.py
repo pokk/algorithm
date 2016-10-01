@@ -21,7 +21,7 @@ def longest_arithmetic_progression(sequence):
         for i in range(index+1, length):
             for j in range(i+1 , length):
                 if sequence[i] * 2 - sequence[index] == sequence[j]:
-                    result[j] = result[i] + 1
+                    result[j] = max(result[j], result[i] + 1)
 
     maximum = -1
     for l in result:
