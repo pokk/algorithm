@@ -4,6 +4,12 @@ from jieyi.algorithm.dynamic_programming import DP
 
 
 class LIS(DP):
+    """
+    Dynamic Programming
+    The problem's description is as below.
+    http://www.geeksforgeeks.org/dynamic-programming-set-3-longest-increasing-subsequence/
+    """
+
     def __init__(self, sequence):
         self._seq = sequence
         self._length_list_of_seq = [0 for _ in sequence]

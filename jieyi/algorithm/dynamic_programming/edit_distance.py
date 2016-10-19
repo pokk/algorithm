@@ -5,6 +5,12 @@ from jieyi.algorithm.dynamic_programming.suffix_matrix import SuffixMatrix
 
 
 class ED(DP):
+    """
+    Dynamic Programming
+    The problem's description is as below.
+    http://www.geeksforgeeks.org/dynamic-programming-set-5-edit-distance/
+    """
+
     def __init__(self, str1=None, str2=None):
         self._suffix_matrix = SuffixMatrix(str1, str2)
         self._matrix = self._suffix_matrix.suffix_matrix

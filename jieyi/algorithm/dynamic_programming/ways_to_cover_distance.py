@@ -7,6 +7,8 @@ class WaysToCoverDistance(DP):
     """
     Count number of ways to cover a distance.
     It's kind of the Fibonacci sequence.
+    The problem's description is as below.
+    http://www.geeksforgeeks.org/count-number-of-ways-to-cover-a-distance/
     """
 
     def __init__(self, n):

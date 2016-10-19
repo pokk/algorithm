@@ -6,6 +6,12 @@ from jieyi.algorithm.dynamic_programming import DP
 
 
 class MIP(DP):
+    """
+    Dynamic Programming
+    The problem's description is as below.
+    http://www.geeksforgeeks.org/dynamic-programming-set-28-minimum-insertions-to-form-a-palindrome/
+    """
+
     def __init__(self, string):
         self._half_palindrome = string
         self._res_matrix = [[0 for _ in range(len(self._half_palindrome))] for _ in range(len(self._half_palindrome))]

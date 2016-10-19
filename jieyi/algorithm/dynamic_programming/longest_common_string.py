@@ -8,6 +8,8 @@ from jieyi.algorithm.dynamic_programming.suffix_matrix import SuffixMatrix
 class LCS(DP):
     """
     Counting and calculate the longest common string algorithm.
+    The problem's description is as below.
+    http://www.geeksforgeeks.org/dynamic-programming-set-4-longest-common-subsequence/
     """
 
     def __init__(self, str1=None, str2=None):

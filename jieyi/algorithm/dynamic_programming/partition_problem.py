@@ -4,6 +4,12 @@ from jieyi.algorithm.dynamic_programming import DP
 
 
 class PP(DP):
+    """
+    Dynamic Programming
+    The problem's description is as below.
+    http://www.geeksforgeeks.org/dynamic-programming-set-18-partition-problem/
+    """
+
     def __init__(self, input_arr):
         self._input_list = sorted(input_arr)
         self._res_table = []

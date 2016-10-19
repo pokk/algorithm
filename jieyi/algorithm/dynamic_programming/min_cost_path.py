@@ -4,6 +4,12 @@ from jieyi.algorithm.dynamic_programming import DP
 
 
 class MCP(DP):
+    """
+    Dynamic Programming
+    The problem's description is as below.
+    http://www.geeksforgeeks.org/dynamic-programming-set-6-min-cost-path/
+    """
+
     def __init__(self, matrix=None):
         self._matrix = matrix
         self._matrix_number_row = len(self._matrix)

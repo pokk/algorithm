@@ -8,6 +8,12 @@ from jieyi.algorithm.dynamic_programming import DP
 
 
 class BSP(DP):
+    """
+    Dynamic Programming
+    The problem's description is as below.
+    http://www.geeksforgeeks.org/dynamic-programming-set-21-box-stacking-problem/
+    """
+
     def __init__(self, rectangles):
         self.__arr_rects = rectangles
         self.__arr_order_rects = None

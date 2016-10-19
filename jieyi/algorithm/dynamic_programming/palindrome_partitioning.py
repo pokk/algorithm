@@ -6,6 +6,12 @@ from jieyi.algorithm.dynamic_programming import DP
 
 
 class PP(DP):
+    """
+    Dynamic Programming
+    The problem's description is as below.
+    http://www.geeksforgeeks.org/dynamic-programming-set-17-palindrome-partitioning/
+    """
+
     def __init__(self, palindrome):
         self._palindrome = palindrome
         self._res_matrix = [[0 for _ in range(len(self._palindrome))] for _ in range(len(self._palindrome))]

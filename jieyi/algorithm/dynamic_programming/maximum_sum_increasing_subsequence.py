@@ -5,6 +5,11 @@ from jieyi.algorithm.dynamic_programming import DP
 
 
 class MSIS(DP):
+    """
+    Dynamic Programming
+    The problem's description is as below.
+    http://www.geeksforgeeks.org/dynamic-programming-set-14-maximum-sum-increasing-subsequence/
+    """
     def __init__(self, array):
         self._arr_list = array
         self._arr_value = self._arr_list[:]

@@ -4,6 +4,12 @@ from jieyi.algorithm.dynamic_programming import DP
 
 
 class BC(DP):
+    """
+    Dynamic Programming
+    The problem's description is as below.
+    http://www.geeksforgeeks.org/dynamic-programming-set-9-binomial-coefficient/
+    """
+
     def __init__(self, c1, c2):
         self._c1 = c1
         self._c2 = c2

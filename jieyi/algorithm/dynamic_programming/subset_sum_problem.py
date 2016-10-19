@@ -4,6 +4,12 @@ from jieyi.algorithm.dynamic_programming import DP
 
 
 class SubsetSumProblem(DP):
+    """
+    Dynamic Programming
+    The problem's description is as below.
+    http://www.geeksforgeeks.org/dynamic-programming-subset-sum-problem/
+    """
+
     def __init__(self, set_list, max_total):
         self._list = set_list
         self._total = max_total

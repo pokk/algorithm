@@ -4,6 +4,11 @@ from jieyi.algorithm.dynamic_programming import DP
 
 
 class UN(DP):
+    """
+    Dynamic Programming
+    http://www.geeksforgeeks.org/ugly-numbers/
+    """
+
     def __init__(self, number):
         self._number = number
         self._arr = [0] * 2

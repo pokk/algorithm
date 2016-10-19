@@ -4,6 +4,12 @@ from jieyi.algorithm.dynamic_programming import DP
 
 
 class DT(DP):
+    """
+    Dynamic Programming
+    The problem's description is as below.
+    http://www.geeksforgeeks.org/dice-throw-problem/
+    """
+
     def __init__(self, inp):
         self._faces = inp[0]
         self._dices = inp[1]

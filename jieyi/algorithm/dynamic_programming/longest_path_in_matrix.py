@@ -8,6 +8,12 @@ from jieyi.algorithm.dynamic_programming import DP
 
 
 class LongestPathInMatrix(DP):
+    """
+    Dynamic Programming
+    The problem's description is as below.
+    
+    """
+
     def __init__(self, matrix=None):
         self._matrix = matrix
         self._matrix_dim = (len(self._matrix), len(self._matrix[0]))
