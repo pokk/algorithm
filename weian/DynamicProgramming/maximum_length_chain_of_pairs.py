@@ -33,8 +33,8 @@ def maximum_length_chain_of_pairs(pairs):
 
 
 def main():
-    pairs = input_data.dynamic_programming.maximum_length_chain_of_pairs.\
-        input_spurce
+    pairs = input_data.dynamic_programming.maximum_length_chain_of_pairs. \
+        input_source
 
     for _ in pairs:
         print("input pairs: " + str(_))
