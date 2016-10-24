@@ -31,8 +31,8 @@ def longest_arithmetic_progression(sequence):
 
 
 def main():
-    sequences = input_data.dynamic_programming.\
-        longest_arithmetic_progression.input_data
+    sequences = input_data.dynamic_programming. \
+        longest_arithmetic_progression.input_source
 
     for sequence in sequences:
         print("input data: " + str(sequence))

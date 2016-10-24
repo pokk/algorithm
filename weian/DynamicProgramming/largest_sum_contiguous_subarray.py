@@ -37,8 +37,8 @@ def largest_sum_contiguous_subarray(array):
 
 
 def main():
-    arrays = input_data.dynamic_programming.\
-        largest_sum_contiguous_subarray.array
+    arrays = input_data.dynamic_programming. \
+        largest_sum_contiguous_subarray.input_source
 
     for array in arrays:
         m, b, e = largest_sum_contiguous_subarray(array)
