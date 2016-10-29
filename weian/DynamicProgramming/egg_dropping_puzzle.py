@@ -12,6 +12,23 @@
 
 INF = float("inf")
 
+
+def egg_dropping_puzzle_recursive(floor_num, egg_num):
+    if floor_num == 0 or floor_num == 1:
+        return 1
+
+    if egg_num == 1:
+        return floor_num
+
+    minimum = INF
+    for x in range(1, floor_num+1):
+        result = 1 + max(egg_dropping_puzzle_recursive(x-1, egg_num-1),
+                         egg_dropping_puzzle_recursive(floor_num-x, egg_num))
+        minimum = min(minimum, result)
+
+    return minimum
+
+
 def egg_dropping_puzzle(floor_num, egg_num):
     dp_table = [[0 for _ in range(floor_num+1)] for _ in range(egg_num+1)]
 
@@ -35,9 +52,10 @@ def egg_dropping_puzzle(floor_num, egg_num):
     return str(dp_table[egg_num][floor_num])
 
 def main():
-    floors_number = 100
+    floors_number = 23
     eggs_number = 2
-    result = egg_dropping_puzzle(floors_number, eggs_number)
+    # result = egg_dropping_puzzle(floors_number, eggs_number)
+    result = egg_dropping_puzzle_recursive(floors_number, eggs_number)
 
     print("Building height: " + str(floors_number))
     print("Eggs: " + str(eggs_number))
