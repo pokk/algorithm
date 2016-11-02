@@ -13,8 +13,11 @@
 
 import input_data.dynamic_programming.longest_arithmetic_progression
 
+
 def longest_arithmetic_progression(sequence):
     length = len(sequence)
+    if length == 1:
+        return 1
     result = [2 for _ in range(length)]
 
     for index in range(length):
