@@ -17,7 +17,7 @@ class ED(DP):
         self._str1 = str1
         self._str2 = str2
 
-    def _init_matrix(self):
+    def _preset(self):
         """
         Initialize the suffix matrix.
         """
@@ -39,14 +39,15 @@ class ED(DP):
                     self._matrix[i + 1][j + 1]['direct'] = 'ul'
                 else:
                     self._matrix[i + 1][j + 1]['len'] = \
-                        min(self._matrix[i + 1][j].get('len'), self._matrix[i][j + 1].get('len'),
-                            self._matrix[i][j].get('len')) + 1
+                        min(self._matrix[i + 1][j].get('len'),  # Insert.
+                            self._matrix[i][j + 1].get('len'),  # Remove.
+                            self._matrix[i][j].get('len')) + 1  # Replace.
 
     def _backtracking(self):
         pass
 
     def res(self):
-        self._init_matrix()
+        self._preset()
         self._algorithm()
 
         return self._matrix[len(self._str2)][len(self._str1)].get('len')
